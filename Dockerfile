@@ -4,12 +4,10 @@ RUN groupadd -r memcache && useradd -r -g memcache memcache
 
 ENV MEMCACHED_VERSION 1.5.5
 ENV MEMCACHED_SHA1 975a5ba57bfc8331bbc3d8f92da969f35a7acf1b
-
+ENV DEBIAN_FRONTEND noninteractive
 COPY memcached-1.5.5.tar.gz /memcached.tar.gz
 
 RUN set -x \
-	\
-	&& export DEBIAN_FRONTEND=noninteractive \
 	\
 	&& buildDeps=' \
 		ca-certificates \
@@ -17,11 +15,11 @@ RUN set -x \
 		libc6-dev \
 		libevent-dev \
 		libsasl2-dev \
-		libssl1.0.2 \
-		libpcap0.8 \
 		gcc \
 		make \
 		perl \
+		libpcap0.8 \
+		libssl1.0.2 \
 		tcpdump \
 		net-tools \
 	' \
