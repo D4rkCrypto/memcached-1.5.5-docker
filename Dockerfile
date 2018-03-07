@@ -17,8 +17,8 @@ RUN set -x \
 		libc6-dev \
 		libevent-dev \
 		libsasl2-dev \
-		libssl \
-		libpcap \
+		libssl1.0.2 \
+		libpcap0.8 \
 		gcc \
 		make \
 		perl \
