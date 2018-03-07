@@ -5,7 +5,9 @@ RUN groupadd -r memcache && useradd -r -g memcache memcache
 ENV MEMCACHED_VERSION 1.5.5
 ENV MEMCACHED_SHA1 975a5ba57bfc8331bbc3d8f92da969f35a7acf1b
 ENV DEBIAN_FRONTEND noninteractive
+
 COPY memcached-1.5.5.tar.gz /memcached.tar.gz
+COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -x \
 	\
@@ -18,8 +20,6 @@ RUN set -x \
 		gcc \
 		make \
 		perl \
-		libpcap0.8 \
-		libssl1.0.2 \
 		tcpdump \
 		net-tools \
 	' \
@@ -49,7 +49,6 @@ RUN set -x \
 	\
 	&& memcached -V
 
-COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 USER memcache
