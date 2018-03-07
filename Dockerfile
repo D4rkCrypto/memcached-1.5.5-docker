@@ -26,7 +26,7 @@ RUN set -x \
 		net-tools \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/* \
+	# && rm -rf /var/lib/apt/lists/* \
 	\
 	&& echo "$MEMCACHED_SHA1  memcached.tar.gz" | sha1sum -c - \
 	&& mkdir -p /usr/src/memcached \
