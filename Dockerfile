@@ -17,12 +17,12 @@ RUN set -x \
 		libc6-dev \
 		libevent-dev \
 		libsasl2-dev \
+		libssl \
+		libpcap \
 		gcc \
 		make \
 		perl \
 		tcpdump \
-		libssl \
-		libpcap \
 		net-tools \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
