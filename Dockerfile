@@ -20,11 +20,11 @@ RUN set -x \
 		gcc \
 		make \
 		perl \
-		tcpdump \
-		net-tools \
 	' \
-	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-	# && rm -rf /var/lib/apt/lists/* \
+	&& apt-get update \
+	&& apt-get install -y $buildDeps --no-install-recommends \
+	&& apt-get install -y tcpdump net-tools --no-install-recommends\
+	&& rm -rf /var/lib/apt/lists/* \
 	\
 	&& echo "$MEMCACHED_SHA1  memcached.tar.gz" | sha1sum -c - \
 	&& mkdir -p /usr/src/memcached \
