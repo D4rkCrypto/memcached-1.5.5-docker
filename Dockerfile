@@ -6,6 +6,8 @@ RUN groupadd -r memcache && useradd -r -g memcache memcache
 ENV MEMCACHED_VERSION 1.5.5
 ENV MEMCACHED_SHA1 975a5ba57bfc8331bbc3d8f92da969f35a7acf1b
 
+COPY memcached-1.5.5.tar.gz /memcached.tar.gz
+
 RUN set -x \
 	\
 	&& buildDeps=' \
@@ -22,7 +24,7 @@ RUN set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
-	&& wget -O memcached.tar.gz "https://memcached.org/files/memcached-$MEMCACHED_VERSION.tar.gz" \
+	# && wget -O memcached.tar.gz "https://memcached.org/files/memcached-$MEMCACHED_VERSION.tar.gz" \
 	&& echo "$MEMCACHED_SHA1  memcached.tar.gz" | sha1sum -c - \
 	&& mkdir -p /usr/src/memcached \
 	&& tar -xzf memcached.tar.gz -C /usr/src/memcached --strip-components=1 \
@@ -35,7 +37,7 @@ RUN set -x \
 		--enable-sasl \
 	&& make -j "$(nproc)" \
 	\
-	&& make test \
+	# && make test \
 	&& make install \
 	\
 	&& cd / && rm -rf /usr/src/memcached \
@@ -48,7 +50,7 @@ RUN set -x \
 	&& memcached -V
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+RUN ln -s usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 USER memcache
