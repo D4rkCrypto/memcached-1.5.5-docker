@@ -21,6 +21,8 @@ RUN set -x \
 		make \
 		perl \
 		tcpdump \
+		libssl \
+		libpcap \
 		net-tools \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
